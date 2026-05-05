@@ -1,0 +1,95 @@
+---
+- name: Desplegar aplicación Flask con Nginx
+  hosts: localhost
+  become: true
+  vars_files:
+    - vars/main.yml
+
+
+  tasks:
+
+    - name: Instalar Nginx
+      apt:
+        name: nginx
+        state: present
+        update_cache: true
+
+    - name: Instalar Python, pip y venv
+      apt:
+         name:
+             - python3
+             - python3-pip
+             - python3-venv
+             - python3-full
+         state: present
+    
+    - name: Crear entorno virtual para Flask
+      command: python3 -m venv /opt/flask/venv
+      args:
+        creates: /opt/flask/venv
+    
+    - name: Instalar Flask en el entorno virtual
+      pip:
+        name: flask
+        virtualenv: /opt/flask/venv
+
+    - name: Crear directorio /opt/flask
+      file:
+        path: /opt/flask
+        state: directory
+        mode: '0755'
+
+    - name: Copiar app.py al servidor
+      copy:
+        src: files/app.py
+        dest: /opt/flask/app.py
+        mode: '0755'
+
+    - name: Copiar configuración de Nginx
+      template:
+        src: templates/nginx.conf.j2
+        dest: /etc/nginx/sites-available/flask
+        mode: '0644'
+
+    - name: Activar sitio en Nginx
+      file:
+        src: /etc/nginx/sites-available/flask
+        dest: /etc/nginx/sites-enabled/flask
+        state: link
+
+    - name: Eliminar sitio por defecto de Nginx
+      file:
+        path: /etc/nginx/sites-enabled/default
+        state: absent
+
+    - name: Crear servicio systemd para Flask
+      copy:
+        dest: /etc/systemd/system/flask.service
+        content: |
+          [Unit]
+          Description=Aplicación Flask
+          After=network.target
+
+          [Service]
+          Environment="FLASK_PORT={{ flask_port }}"
+          ExecStart=/opt/flask/venv/bin/python /opt/flask/app.py
+          Restart=always
+
+          [Install]
+          WantedBy=multi-user.target
+
+    - name: Recargar systemd
+      systemd:
+        daemon_reload: true
+
+    - name: Iniciar y habilitar Flask
+      systemd:
+        name: flask
+        state: started
+        enabled: true
+
+    - name: Iniciar y habilitar Nginx
+      systemd:
+        name: nginx
+        state: restarted
+        enabled: true
