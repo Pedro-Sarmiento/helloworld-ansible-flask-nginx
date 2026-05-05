@@ -50,6 +50,7 @@
         src: templates/nginx.conf.j2
         dest: /etc/nginx/sites-available/flask
         mode: '0644'
+      notify: Reiniciar Nginx
 
     - name: Activar sitio en Nginx
       file:
@@ -77,6 +78,7 @@
 
           [Install]
           WantedBy=multi-user.target
+        notify: Reiniciar Flask
 
     - name: Recargar systemd
       systemd:
@@ -93,3 +95,14 @@
         name: nginx
         state: restarted
         enabled: true
+        
+handlers:
+    - name: Reiniciar Nginx
+      systemd:
+        name: nginx
+        state: restarted
+
+    - name: Reiniciar Flask
+      systemd:
+        name: flask
+        state: restarted

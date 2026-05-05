@@ -4,3 +4,5 @@ all:
     localhost:
       ansible_connection: local
       ansible_user: "{{ lookup('env', 'USER') }}"
+  vars:
+    flask_port: 5000
