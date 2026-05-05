@@ -7,7 +7,7 @@ una aplicación **Flask** servida a través de **Nginx** como proxy inverso.
 
 ## Estructura del proyecto
 
-~~
+```
 helloworld-ansible-flask-nginx/
 ├── deploy.yml              # Playbook principal
 ├── inventory.yml           # Inventario de hosts
@@ -17,7 +17,7 @@ helloworld-ansible-flask-nginx/
 │   └── app.py              # Aplicación Flask
 └── templates/
     └── nginx.conf.j2       # Plantilla de configuración Nginx
-~~
+```
 
 ---
 
@@ -53,34 +53,34 @@ helloworld-ansible-flask-nginx/
 
 ### 1. Clona el repositorio
 
-~~bash
+```bash
 git clone git@github.com:Pedro-Sarmiento/helloworld-ansible-flask-nginx.git
 cd helloworld-ansible-flask-nginx
-~~
+```
 
 ### 2. Ejecuta el playbook
 
-~~bash
+```bash
 ansible-playbook -i inventory.yml deploy.yml --ask-become-pass
-~~
+```
 
 ### 3. Prueba la aplicación
 
-~~bash
+```bash
 curl http://localhost
-~~
+```
 
 Deberías ver:
 
-~~
+```
 Hola Mundo
-~~
+```
 
 ---
 
 ## Arquitectura
 
-~~
+```
 Cliente HTTP
      |
      v
@@ -89,7 +89,7 @@ Cliente HTTP
      v
   Flask :5000
   /opt/flask/venv
-~~
+```
 
 ---
 
