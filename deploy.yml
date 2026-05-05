@@ -96,7 +96,7 @@
         state: restarted
         enabled: true
         
-handlers:
+  handlers:
     - name: Reiniciar Nginx
       systemd:
         name: nginx
