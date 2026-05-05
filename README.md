@@ -1,4 +1,4 @@
-201~200~# 🚀 Hola Mundo con Flask + Nginx desplegado con Ansible
+# 🚀 Hola Mundo con Flask + Nginx desplegado con Ansible
 
 Proyecto de automatización de infraestructura usando **Ansible** para desplegar
 una aplicación **Flask** servida a través de **Nginx** como proxy inverso.
