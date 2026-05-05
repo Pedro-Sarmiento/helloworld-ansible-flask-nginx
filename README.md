@@ -1,9 +1,9 @@
-# 🚀 Hola Mundo con Flask + Nginx desplegado con Ansible
+#  Hola Mundo con Flask + Nginx desplegado con Ansible
 
 Proyecto de automatización de infraestructura usando **Ansible** para desplegar
 una aplicación **Flask** servida a través de **Nginx** como proxy inverso.
 
-## 📁 Estructura del proyecto
+##  Estructura del proyecto
 
 \`\`\`
 helloworld-ansible-flask-nginx/
@@ -17,19 +17,19 @@ helloworld-ansible-flask-nginx/
     └── nginx.conf.j2       # Plantilla de configuración Nginx
     \`\`\`
 
-    ## ⚙️ Requisitos
+    ##  Requisitos
 
     - Debian 12/13
     - Ansible 2.9+
     - Acceso sudo en el host destino
 
-    ## 🔧 Variables disponibles
+    ##  Variables disponibles
 
     | Variable | Valor por defecto | Descripción |
     |---|---|---|
     | `flask_port` | `5000` | Puerto en el que escucha Flask |
 
-    ## 🏗️ Qué hace el playbook
+    ##  Qué hace el playbook
 
     1. **Instala Nginx** como proxy inverso en el puerto 80
     2. **Instala Python 3** y crea un entorno virtual
@@ -39,7 +39,7 @@ helloworld-ansible-flask-nginx/
     6. **Crea un servicio systemd** para que Flask arranque automáticamente
     7. **Inicia** ambos servicios
 
-    ## 🚀 Uso
+    ##  Uso
 
     ### 1. Clona el repositorio
 
@@ -66,7 +66,7 @@ helloworld-ansible-flask-nginx/
     Hola Mundo
     \`\`\`
 
-    ## 🏛️ Arquitectura
+    ##  Arquitectura
 
     \`\`\`
     Cliente HTTP
@@ -79,13 +79,13 @@ helloworld-ansible-flask-nginx/
                               /opt/flask/venv
                               \`\`\`
 
-                              ## 🛠️ Servicios gestionados
+                              ##  Servicios gestionados
 
                               | Servicio | Puerto | Gestionado por |
                               |---|---|---|
                               | Nginx | 80 | systemd |
                               | Flask | 5000 | systemd |
 
-                              ## 📝 Licencia
+                              ##  Licencia
 
                               MIT
