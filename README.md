@@ -97,7 +97,7 @@ flowchart TD
     Nginx -->|proxy_pass :5000| Flask[Flask app]
     Flask -.->|managed by| Sysd1[systemd]
     Nginx -.->|managed by| Sysd2[systemd]
-    Flask --- Venv[/opt/flask/venv]
+    Flask --- Venv["/opt/flask/venv"]
 ```
 
 ---
